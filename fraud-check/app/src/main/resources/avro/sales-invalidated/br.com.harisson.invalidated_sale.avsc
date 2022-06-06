@@ -1,0 +1,33 @@
+{
+  "namespace": "br.com.harisson",
+  "doc": "Este avro representa uma venda invalidada.",
+  "type": "record",
+  "name": "InvalidatedSale",
+  "fields": [
+    {
+      "name": "price",
+      "type": "double"
+    },
+    {
+      "name": "payment_type",
+      "type": {
+        "name": "PaymentTypeEnum",
+        "type": "enum",
+        "symbols": ["DINHEIRO", "PIX", "TRANSFERENCIA", "DEBITO", "CREDITO"]
+      }
+    },
+    {
+      "name": "product",
+      "type": "Product"
+    },
+    {
+      "name": "sale_id",
+      "type": "string"
+    },
+    {
+      "name": "motive",
+      "type": ["null", "string"],
+      "default": null
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "namespace": "br.com.harisson",
+  "doc": "Este avro representa uma venda checada.",
+  "type": "record",
+  "name": "CheckedSale",
+  "fields": [
+    {
+      "name": "price",
+      "type": "double"
+    },
+    {
+      "name": "payment_type",
+      "type": {
+        "name": "PaymentTypeEnum",
+        "type": "enum",
+        "symbols": ["DINHEIRO", "PIX", "TRANSFERENCIA", "DEBITO", "CREDITO"]
+      }
+    },
+    {
+      "name": "product",
+      "type": "Product"
+    },
+    {
+      "name": "sale_id",
+      "type": "string"
+    },
+    {
+      "name": "amount",
+      "type": "int"
+    }
+  ]
+}
