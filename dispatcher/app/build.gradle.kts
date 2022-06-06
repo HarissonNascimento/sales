@@ -17,6 +17,7 @@ repositories {
 	mavenCentral()
 	maven { url = uri("https://repo.spring.io/milestone") }
 	maven { url = uri("https://repo.spring.io/snapshot") }
+	maven { url = uri("https://packages.confluent.io/maven/") }
 }
 
 dependencies {
@@ -32,6 +33,13 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
+}
+
+tasks.clean {
+	doFirst {
+		delete(paths = arrayOf("$rootDir/src/main/java/br/com/harisson/"))
+	}
+	doLast { println(">> Avro Java classes have been deleted")}
 }
 
 val avroGen by tasks.register("generateAvroJavaClasses", GenerateAvroJavaTask::class.java) {
