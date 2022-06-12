@@ -1,0 +1,40 @@
+{
+  "namespace": "br.com.harisson",
+  "doc": "Este avro representa uma venda processada.",
+  "type": "record",
+  "name": "ProcessedSale",
+  "fields": [
+    {
+      "name": "price",
+      "type": "double"
+    },
+    {
+      "name": "payment_type",
+      "type": {
+        "name": "PaymentTypeEnum",
+        "type": "enum",
+        "symbols": ["DINHEIRO", "PIX", "TRANSFERENCIA", "DEBITO", "CREDITO"]
+      }
+    },
+    {
+      "name": "product",
+      "type": "Product"
+    },
+    {
+      "name": "sale_id",
+      "type": "string"
+    },
+    {
+      "name": "amount",
+      "type": "int"
+    },
+    {
+      "name": "status",
+      "type": {
+        "name": "StatusEnum",
+        "type": "enum",
+        "symbols": ["DONE", "FAIL"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "namespace": "br.com.harisson",
+  "doc": "Este avro representa um produto.",
+  "type": "record",
+  "name": "Product",
+  "fields": [
+    {
+      "name": "product_id",
+      "type": "string"
+    }
+  ]
+}
