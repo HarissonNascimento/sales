@@ -8,13 +8,13 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class KafkaListenerFilter {
 
-    private val acceptedEventTypes = setOf(
-        RequestSale::class.qualifiedName!!
+    private val acceptedEventTypes = listOf(
+        RequestSale::class.java
     )
 
-    fun eventTypeIsValid(consumerRecord: ConsumerRecord<String?, GenericRecord>): Boolean {
-        val recordType = consumerRecord.value()!!::class.qualifiedName!!
-        return acceptedEventTypes.contains(recordType)
+    fun shouldDiscardEvent(consumerRecord: ConsumerRecord<String?, GenericRecord>): Boolean {
+        val recordType = consumerRecord.value()!!::class.java
+        return recordType !in acceptedEventTypes
     }
 
 }
