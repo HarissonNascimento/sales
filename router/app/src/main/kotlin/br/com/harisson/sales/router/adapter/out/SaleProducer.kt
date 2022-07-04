@@ -1,5 +1,6 @@
 package br.com.harisson.sales.router.adapter.out
 
+import br.com.harisson.sales.router.application.port.out.RouterOutputPort
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.runCatching
 import org.apache.avro.generic.GenericRecord
@@ -10,10 +11,10 @@ import org.springframework.stereotype.Component
 import org.springframework.util.concurrent.ListenableFuture
 
 @Component
-class SaleProducer {
+class SaleProducer: RouterOutputPort {
 
-    fun send(
-        key: String? = null,
+    override fun send(
+        key: String?,
         record: GenericRecord,
         topic: String,
         kafkaTemplate: KafkaTemplate<String, GenericRecord>

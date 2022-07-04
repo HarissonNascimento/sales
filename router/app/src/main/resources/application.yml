@@ -37,3 +37,12 @@ spring:
         name: sales-fraud-check
       sales-invalidated:
         name: sales-invalidated
+
+aws:
+  region: sa-east-1
+
+dynamodb:
+  endpoint: http://localhost:4566
+  tables:
+    idempotency-table:
+      name: router_idempotency

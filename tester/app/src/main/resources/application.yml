@@ -27,3 +27,4 @@ spring:
         schema.registry.url: http://localhost:8081
         key.subject.name.strategy: io.confluent.kafka.serializers.subject.TopicRecordNameStrategy
         value.subject.name.strategy: io.confluent.kafka.serializers.subject.TopicRecordNameStrategy
+        specif.avro.reader: true

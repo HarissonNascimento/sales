@@ -32,6 +32,9 @@ dependencies {
 	implementation("io.confluent:kafka-avro-serializer:7.1.1")
 	implementation("org.apache.kafka:kafka_2.13:3.2.0")
 
+	implementation(platform("software.amazon.awssdk:bom:2.17.224"))
+	implementation("software.amazon.awssdk:dynamodb-enhanced")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
 }
