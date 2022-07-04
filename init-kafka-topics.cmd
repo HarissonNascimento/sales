@@ -10,3 +10,4 @@ docker exec sales-kafka kafka-topics --bootstrap-server sales-kafka:29092 --crea
 
 echo -e 'Successfully created the following topics:'
 docker exec sales-kafka kafka-topics --bootstrap-server sales-kafka:29092 --list
+docker exec -it sales-schema-registry kafka-avro-console-producer --broker-list sales-kafka:29092 --bootstrap-server sales-kafka:29092 --property value.schema='{\"type\":\"record\",\"name\":\"Foo\",\"fields\":[{\"name\":\"bla\",\"type\":\"string\"}]}' --topic sales-to-be-processed

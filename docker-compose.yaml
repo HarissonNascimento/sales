@@ -2,9 +2,32 @@ version: '3.0'
 
 services:
 
+  localstack:
+    image: localstack/localstack:latest
+    container_name: sales-localstack
+    networks:
+      - sales-network
+    environment:
+      - AWS_DEFAULT_REGION=sa-east-1
+      - DEFAULT_REGION=sa-east-1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACESS_KEY=test
+      - SERVICES=dynamodb
+      - HOST_TMP_FOLDER=${TMPDIR:-/tmp/}localstack
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    ports:
+      - "127.0.0.1:4510-4530:4510-4530"
+      - "127.0.0.1:4566:4566"
+      - "127.0.0.1:4571:4571"
+    volumes:
+      - "${TMPDIR:-/tmp}/localstack:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
   sales-zookeeper:
     image: confluentinc/cp-zookeeper
     container_name: sales-zookeeper
+    networks:
+      - sales-network
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -14,6 +37,8 @@ services:
   sales-kafka:
     image: confluentinc/cp-kafka:latest
     container_name: sales-kafka
+    networks:
+      - sales-network
     depends_on:
       - sales-zookeeper
     ports:
@@ -30,6 +55,8 @@ services:
   sales-schema-registry:
     image: confluentinc/cp-schema-registry
     container_name: sales-schema-registry
+    networks:
+      - sales-network
     depends_on:
       - sales-zookeeper
     ports:
@@ -40,5 +67,6 @@ services:
       SCHEMA_REGISTRY_LISTENERS: "http://0.0.0.0:8081"
       SCHEMA_REGISTRY_DEBUG: "true"
 
-volumes:
-  sales:
+networks:
+  sales-network:
+    driver: bridge

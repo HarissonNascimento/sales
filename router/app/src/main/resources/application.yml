@@ -13,7 +13,7 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       properties:
         schema.registry.url: http://localhost:8081
-        specif.avro.reader: true
+        specific.avro.reader: true
         key.subject.name.strategy: io.confluent.kafka.serializers.subject.TopicRecordNameStrategy
         value.subject.name.strategy: io.confluent.kafka.serializers.subject.TopicRecordNameStrategy
         spring.deserializer:
@@ -37,3 +37,12 @@ spring:
         name: sales-fraud-check
       sales-invalidated:
         name: sales-invalidated
+
+aws:
+  region: sa-east-1
+
+dynamodb:
+  endpoint: http://localhost:4566
+  tables:
+    idempotency-table:
+      name: router_idempotency

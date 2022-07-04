@@ -32,9 +32,9 @@ class KafkaListenerConfig(
 
         containerFactory.consumerFactory = newConsumerFactory
         containerFactory.setConcurrency(1)
-        containerFactory.containerProperties.ackMode = ContainerProperties.AckMode.MANUAL_IMMEDIATE
+        containerFactory.containerProperties.ackMode = ContainerProperties.AckMode.MANUAL
         containerFactory.setRecordFilterStrategy{
-            kafkaListenerFilter.eventTypeIsValid(it)
+            kafkaListenerFilter.shouldDiscardEvent(it)
         }
         containerFactory.setCommonErrorHandler(
             DefaultErrorHandler(FixedBackOff(10, 3)).apply { isAckAfterHandle = true })
