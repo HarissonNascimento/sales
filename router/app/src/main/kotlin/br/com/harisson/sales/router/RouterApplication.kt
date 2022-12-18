@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class RouterApplication
 
 fun main(args: Array<String>) {
-	runApplication<RouterApplication>(*args)
+    runApplication<RouterApplication>(*args)
 }
