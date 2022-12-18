@@ -1,2 +1,39 @@
 server:
   port: 7071
+
+spring:
+  kafka:
+    bootstrap-servers: http://localhost:29092
+    properties:
+      value.subject.name.strategy: io.confluent.kafka.serializers.subject.TopicRecordNameStrategy
+
+    consumer:
+      group-id: fraud-check
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        schema.registry.url: http://localhost:8081
+        specific.avro.reader: true
+        key.subject.name.strategy: io.confluent.kafka.serializers.subject.TopicRecordNameStrategy
+        value.subject.name.strategy: io.confluent.kafka.serializers.subject.TopicRecordNameStrategy
+        spring.deserializer:
+          key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+          value.delegate.class: io.confluent.kafka.serializers.KafkaAvroDeserializer
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      properties:
+        schema.registry.url: http://localhost:8081
+        key.subject.name.strategy: io.confluent.kafka.serializers.subject.TopicRecordNameStrategy
+        value.subject.name.strategy: io.confluent.kafka.serializers.subject.TopicRecordNameStrategy
+
+  topics:
+    consumer:
+      sales-fraud-check:
+        name: sales-fraud-check
+    producer:
+      sales-checked:
+        name: sales-checked
+      sales-invalidated:
+        name: sales-invalidated
