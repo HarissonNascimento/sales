@@ -1,5 +1,5 @@
 package br.com.harisson.sales.router.common
 
-object ColumnName{
+object ColumnName {
     const val ID = "sale_id"
 }

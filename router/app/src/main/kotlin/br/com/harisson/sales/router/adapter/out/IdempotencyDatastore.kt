@@ -11,18 +11,18 @@ import software.amazon.awssdk.enhanced.dynamodb.model.PutItemEnhancedRequest
 @Repository
 class IdempotencyDatastore(
     private val idempotencyTable: DynamoDbTable<IdempotencyEntity>
-): IdempotencyOutputPort {
-    companion object{
+) : IdempotencyOutputPort {
+    companion object {
         private val NOT_EXISTS_CONDITION_EXPRESSION = Expression.builder()
             .expression("attribute_not_exists($ID)").build()
     }
 
-    override fun putIfNotExists(idempotencyEntity: IdempotencyEntity) = runCatching{
+    override fun putIfNotExists(idempotencyEntity: IdempotencyEntity) = run {
         val updateIdempotencyRequest = PutItemEnhancedRequest.builder(IdempotencyEntity::class.java)
             .conditionExpression(NOT_EXISTS_CONDITION_EXPRESSION)
             .item(idempotencyEntity)
             .build()
 
         idempotencyTable.putItem(updateIdempotencyRequest)
-    }.getOrThrow()
+    }
 }

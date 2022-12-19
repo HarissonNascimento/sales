@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class FraudCheckApplication
 
 fun main(args: Array<String>) {
-	runApplication<FraudCheckApplication>(*args)
+    runApplication<FraudCheckApplication>(*args)
 }

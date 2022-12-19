@@ -1,9 +1,9 @@
-package br.com.harisson.sales.router.adapter.out
+package br.com.harisson.sales.fraudcheck.adapter.out
 
-import br.com.harisson.sales.router.application.port.out.RouterOutputPort
+import br.com.harisson.sales.fraudcheck.application.port.out.FraudCheckOutputPort
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.runCatching
-import org.apache.avro.generic.GenericRecord
+import org.apache.avro.specific.SpecificRecord
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.support.SendResult
@@ -11,14 +11,14 @@ import org.springframework.stereotype.Component
 import org.springframework.util.concurrent.ListenableFuture
 
 @Component
-class SaleProducer : RouterOutputPort {
+class SaleProducer : FraudCheckOutputPort {
 
     override fun send(
         key: String?,
-        record: GenericRecord,
+        record: SpecificRecord,
         topic: String,
-        kafkaTemplate: KafkaTemplate<String, GenericRecord>
-    ): Result<ListenableFuture<SendResult<String?, GenericRecord>>, Throwable> {
+        kafkaTemplate: KafkaTemplate<String, SpecificRecord>
+    ): Result<ListenableFuture<SendResult<String?, SpecificRecord>>, Throwable> {
         return runCatching {
             val producerRecord = ProducerRecord(topic, null, null, key, record)
 
@@ -33,5 +33,4 @@ class SaleProducer : RouterOutputPort {
             sentMessage
         }
     }
-
 }

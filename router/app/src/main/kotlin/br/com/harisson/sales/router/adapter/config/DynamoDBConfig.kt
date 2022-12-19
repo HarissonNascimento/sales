@@ -20,10 +20,10 @@ class DynamoDBConfig(
         @Value("\${aws.region}") awsRegion: String,
         @Value("\${dynamodb.endpoint}") endpoint: String
     ) = DynamoDbClient.builder()
-            .region(Region.of(awsRegion))
-            .endpointOverride(URI(endpoint))
-            .credentialsProvider(DefaultCredentialsProvider.create())
-            .build()
+        .region(Region.of(awsRegion))
+        .endpointOverride(URI(endpoint))
+        .credentialsProvider(DefaultCredentialsProvider.create())
+        .build()
 
     @Bean
     fun dynamoDbEnhancedClient(dynamoDbClient: DynamoDbClient) =
